@@ -45,8 +45,8 @@ pipeline {
                     docker compose down || true
                     docker compose up -d
                     sleep 6
-                    curl localhost:80/api/v1/checkapi
-                    curl localhost:81/api/v1/checkapi
+                    curl localhost:8080/api/v1/movies/docs
+                    curl localhost:8080/api/v1/casts/docs
                     docker compose down
                     '''
                 }
