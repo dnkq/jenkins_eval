@@ -39,6 +39,9 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    docker stop $(docker ps -aq) || true
+                    docker rm $(docker ps -aq) || true
+                    docker network prune -f || true
                     docker compose down || true
                     docker compose up -d
                     sleep 6
