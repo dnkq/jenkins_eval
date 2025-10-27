@@ -25,8 +25,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker run -d -p 80:80 --name cast $DOCKER_ID/$DOCKER_IMAGE_CAST:$DOCKER_TAG
-                    docker run -d -p 81:80 --name movie $DOCKER_ID/$DOCKER_IMAGE_MOVIE:$DOCKER_TAG
+                    docker run -d -p 80:8000 --name cast $DOCKER_ID/$DOCKER_IMAGE_CAST:$DOCKER_TAG
+                    docker run -d -p 81:8000 --name movie $DOCKER_ID/$DOCKER_IMAGE_MOVIE:$DOCKER_TAG
                     sleep 10
                     '''
                 }
@@ -37,8 +37,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    curl localhost
-                    curl localhost:81
+                    curl localhost:80/api/v1/checkapi
+                    curl localhost:81/api/v1/checkapi
                     '''
                 }
             }
