@@ -25,6 +25,8 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    docker rm -f cast || true
+                    docker rm -f movie || true
                     docker run -d -p 80:8000 --name cast $DOCKER_ID/$DOCKER_IMAGE_CAST:$DOCKER_TAG
                     docker run -d -p 81:8000 --name movie $DOCKER_ID/$DOCKER_IMAGE_MOVIE:$DOCKER_TAG
                     sleep 10
