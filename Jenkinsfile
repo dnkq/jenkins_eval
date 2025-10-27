@@ -39,8 +39,12 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    docker-compose down || true
+                    docker-compose up -d
+                    sleep 6
                     curl localhost:80/api/v1/checkapi
                     curl localhost:81/api/v1/checkapi
+                    docker-compose down
                     '''
                 }
             }
