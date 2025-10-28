@@ -82,12 +82,8 @@ pipeline {
 
                     cp charts/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-
-                    helm upgrade --install cast-service charts --values=values.yml --namespace dev
-                    helm test cast-service --namespace dev
-
-                    helm upgrade --install movie-service charts --values=values.yml --namespace dev
-                    helm test movie-service --namespace dev
+                    helm upgrade --install cast-service charts --values=values.yml --namespace dev --set image.repository=${DOCKER_ID}/cast-service --set image.tag=${DOCKER_TAG}
+                    helm upgrade --install movie-service charts --values=values.yml --namespace dev --set image.repository=${DOCKER_ID}/cast-service --set image.tag=${DOCKER_TAG}
                     '''
                 }
             }
@@ -107,12 +103,8 @@ pipeline {
 
                     cp charts/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-
-                    helm upgrade --install cast-service charts --values=values.yml --namespace qa
-                    helm test cast-service --namespace qa
-
-                    helm upgrade --install movie-service charts --values=values.yml --namespace qa
-                    helm test movie-service --namespace qa
+                    helm upgrade --install cast-service charts --values=values.yml --namespace qa --set image.repository=${DOCKER_ID}/cast-service --set image.tag=${DOCKER_TAG}
+                    helm upgrade --install movie-service charts --values=values.yml --namespace qa --set image.repository=${DOCKER_ID}/movie-service --set image.tag=${DOCKER_TAG}
                     '''
                 }
             }
@@ -132,12 +124,8 @@ pipeline {
 
                     cp charts/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-
-                    helm upgrade --install cast-service charts --values=values.yml --namespace staging
-                    helm test cast-service --namespace staging
-
-                    helm upgrade --install movie-service charts --values=values.yml --namespace staging
-                    helm test movie-service --namespace staging
+                    helm upgrade --install cast-service charts --values=values.yml --namespace staging --set image.repository=${DOCKER_ID}/cast-service --set image.tag=${DOCKER_TAG}
+                    helm upgrade --install movie-service charts --values=values.yml --namespace staging --set image.repository=${DOCKER_ID}/movie-service --set image.tag=${DOCKER_TAG}
                     '''
                 }
             }
@@ -160,12 +148,8 @@ pipeline {
 
                     cp charts/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-
-                    helm upgrade --install cast-service charts --values=values.yml --namespace prod
-                    helm test cast-service --namespace prod
-
-                    helm upgrade --install movie-service charts --values=values.yml --namespace prod
-                    helm test movie-service --namespace prod
+                    helm upgrade --install cast-service charts --values=values.yml --namespace prod --set image.repository=${DOCKER_ID}/cast-service --set image.tag=${DOCKER_TAG}
+                    helm upgrade --install movie-service charts --values=values.yml --namespace prod --set image.repository=${DOCKER_ID}/movie-service --set image.tag=${DOCKER_TAG}
                     '''
                 }
             }
