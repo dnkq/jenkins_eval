@@ -121,7 +121,6 @@ pipeline {
                     mkdir .kube
                     ls
                     cat $KUBECONFIG > .kube/config
-
                     cp charts/values.yaml values.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                     helm upgrade --install cast-service charts --values=values.yml --namespace staging --set image.repository=${DOCKER_ID}/cast-service --set image.tag=${DOCKER_TAG}
